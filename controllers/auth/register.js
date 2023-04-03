@@ -8,6 +8,7 @@ const { RequestError, sendEmail } = require("../../helpers");
 
 const { BASE_URL } = process.env;
 
+
 const register = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -16,6 +17,7 @@ const register = async (req, res) => {
   }
   const hashPassword = await bcrypt.hash(password, 10);
   const avatarURL = gravatar.url(email);
+
   const verificationToken = nanoid();
   const result = await User.create({
     email,
@@ -31,6 +33,7 @@ const register = async (req, res) => {
   };
 
   await sendEmail(mail);
+
 
   res.status(201).json({
     email: result.email,

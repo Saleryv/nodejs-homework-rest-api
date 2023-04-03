@@ -7,7 +7,9 @@ const allowedSubscriptions = ["starter", "pro", "business"];
 const userSchema = new Schema({
   password: {
     type: String,
+
     required: [true, "Password is required"],
+
   },
   email: {
     type: String,
@@ -19,10 +21,12 @@ const userSchema = new Schema({
     enum: ["starter", "pro", "business"],
     default: "starter",
   },
+
   token: {
     type: String,
     default: "",
   },
+
   avatarURL: {
     type: String,
     required: true,
@@ -35,6 +39,7 @@ const userSchema = new Schema({
     type: String,
     required: [true, "Verify token is required"],
   },
+
 });
 
 userSchema.post("save", handleSaveErrors);
@@ -55,6 +60,7 @@ const subscriptionSchema = Joi.object({
     .required(),
 });
 
+
 const verifyEmailSchema = Joi.object({
   email: Joi.string().required(),
 });
@@ -64,6 +70,7 @@ const schemas = {
   loginSchema,
   subscriptionSchema,
   verifyEmailSchema,
+
 };
 
 const User = model("user", userSchema);
