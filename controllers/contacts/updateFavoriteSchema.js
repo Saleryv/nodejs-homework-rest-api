@@ -1,3 +1,4 @@
+
 const { Contact } = require("../../models/contact");
 
 const { RequestError } = require("../../helpers");
@@ -12,3 +13,4 @@ const updateFavoriteSchema = async (req, res) => {
 }
 
 module.exports = updateFavoriteSchema;
+
