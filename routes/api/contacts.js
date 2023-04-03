@@ -3,6 +3,7 @@ const ctrl = require("../../controllers/contacts");
 const { validateBody, authenticate } = require("../../middlewares");
 const { schemas } = require("../../models/contact");
 const { ctrlWrapper } = require("../../helpers");
+
 const router = express.Router();
 
 router.get("/", authenticate, ctrlWrapper(ctrl.listContacts));

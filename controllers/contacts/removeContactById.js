@@ -14,4 +14,4 @@ const removeContactById = async (req, res) => {
   });
 };
 
-module.exports = removeContactById;
+module.exports = updateContactById;

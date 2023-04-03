@@ -2,13 +2,14 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
 const { handleSaveErrors } = require("../helpers");
-
 const allowedSubscriptions = ["starter", "pro", "business"];
 
 const userSchema = new Schema({
   password: {
     type: String,
-    required: [true, "Set password for user"],
+
+    required: [true, "Password is required"],
+
   },
   email: {
     type: String,
@@ -20,11 +21,25 @@ const userSchema = new Schema({
     enum: ["starter", "pro", "business"],
     default: "starter",
   },
-  token: String,
+
+  token: {
+    type: String,
+    default: "",
+  },
+
   avatarURL: {
     type: String,
     required: true,
   },
+  verify: {
+    type: Boolean,
+    default: false,
+  },
+  verificationToken: {
+    type: String,
+    required: [true, "Verify token is required"],
+  },
+
 });
 
 userSchema.post("save", handleSaveErrors);
@@ -45,10 +60,17 @@ const subscriptionSchema = Joi.object({
     .required(),
 });
 
+
+const verifyEmailSchema = Joi.object({
+  email: Joi.string().required(),
+});
+
 const schemas = {
   registerSchema,
   loginSchema,
   subscriptionSchema,
+  verifyEmailSchema,
+
 };
 
 const User = model("user", userSchema);
